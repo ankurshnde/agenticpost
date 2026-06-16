@@ -785,6 +785,18 @@ async def main():
         f.write(new_html)
     print("[+] HTML file updated successfully with both tweets and weekly report.")
 
+    # Fail-safe writes for Vercel path configuration compatibility
+    outputs_dir = os.path.join(BASE_DIR, 'outputs')
+    if os.path.exists(outputs_dir):
+        try:
+            with open(os.path.join(outputs_dir, 'index.html'), 'w', encoding='utf-8') as f:
+                f.write(new_html)
+            with open(os.path.join(outputs_dir, 'agentic-ai-capital-markets-tracker.html'), 'w', encoding='utf-8') as f:
+                f.write(new_html)
+            print("[+] Fail-safe HTML copies written to outputs/ folder.")
+        except Exception as e:
+            print(f"[-] Warning: Failed to write fail-safe copies: {e}")
+
     print("[+] Done!")
 
 if __name__ == "__main__":
