@@ -1,0 +1,4 @@
+work/config.json
+work/session.json
+work/__pycache__/
+*.log
